@@ -41,7 +41,8 @@ then
 else
     echo "Internet connection detected!"
 fi
-
+echo "NOTE: If it asks you what display manager to use, be sure to select GDM!"
+zenity --info --icon-name=trenta --text="Check on the script every once in a while. If it asks you what display manager to use, be sure to use your keyboard to select GDM!"
 # Start Questioning
 echo ""
 echo "This script will remove the following applications:"
@@ -281,15 +282,21 @@ wget -q http://trentaos.org/installer-files/appearance.ui
 wget -q http://trentaos.org/installer-files/process-monitor.desktop
 wget -q http://trentaos.org/installer-files/synapse.desktop
 wget -q http://trentaos.org/installer-files/bear.png
+wget -q http://trentaos.org/installer-files/os-release
+wget -q http://trentaos.org/installer-files/lsb-release
+wget -q http://trentaos.org/installer-files/docky
 mv -f trenta-wallpaper.png /usr/share/backgrounds
 mv -f ubuntu-wallpapers.xml /usr/share/gnome-background-properties/
 mv -f UbuntuLogo.png /usr/share/unity-control-center/ui
 mv -f searchingthedashlegalnotice.html /usr/share/unity-control-center
 mv -f appearance.ui /usr/share/unity-control-center/ui/appearance
+mv -f os-release /etc
+mv -f lsb-release /etc
 mv -f bear.png /usr/share/icons/hicolor/96x96/apps
 gtk-update-icon-cache -f /usr/share/icons/hicolor/
 mv ~/.trenta/installer/process-monitor.desktop /etc/xdg/autostart
 mv ~/.trenta/installer/synapse.desktop /etc/xdg/autostart
+mv ~/.trenta/installer/docky /usr/share/docky/
 # Updating Software
 echo "Updating Ubuntu..."
 apt-get -yqq dist-upgrade
