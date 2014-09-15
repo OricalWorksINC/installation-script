@@ -302,6 +302,6 @@ apt-get -y clean
 # Time for part two
 echo "Time for part two! Your system will restart shortly."
 notify-send --urgency=critical --app-name=gnome-terminal --icon=trenta Trenta\ OS Time\ for\ part\ two!
-zenity --info --icon-name=trenta --text="Please save your work and hit OK so that we can restart your system. When it boots back up, click the gear icon and select Gnome Classic (Compiz). Then login."
+zenity --info --icon-name=trenta --text="Please save your work and hit OK so that we can restart your system. When it boots back up, click the gear icon and select Gnome Classic (Compiz). Then login. Once you get logged in, run wget -q -O - https://trentaos.org/installer-files/trenta-installer2.bash | bash"
 reboot -f
 exit
