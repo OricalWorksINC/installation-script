@@ -182,8 +182,8 @@ read -p "Do you want to continue (Y/n)? "
 # Begin
 echo "Installing GDM"
 apt-get -yqq update
-apt-get -yqq install gdm
 apt-get -yqq purge lightdm
+apt-get -yqq install gdm
 if [[ $removeALL = true ]];then
 echo "Removing the listed applications..."
 apt-get -yqq purge firefox empathy unity thunderbird totem rhythmbox
