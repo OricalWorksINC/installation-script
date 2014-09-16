@@ -1,4 +1,5 @@
 #!/bin/bash
+# version 0.1
 echo "Configuring Trenta More..."
 gsettings set org.gnome.desktop.interface document-font-name 'Roboto 11'
 gsettings set org.gnome.desktop.interface font-name 'Roboto 11'
