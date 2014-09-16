@@ -12,7 +12,7 @@
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 # FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-echo "Welcome to the Trenta OS Installer!"
+echo "Welcome to the Trenta OS Installer version 0.1!"
 # Check if root
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 1>&2
@@ -182,8 +182,8 @@ read -p "Do you want to continue (Y/n)? "
 # Begin
 echo "Installing GDM"
 apt-get -yqq update
-apt-get -yqq purge lightdm
 apt-get -yqq install gdm
+apt-get -yqq purge lightdm
 if [[ $removeALL = true ]];then
 echo "Removing the listed applications..."
 apt-get -yqq purge firefox empathy unity thunderbird totem rhythmbox
@@ -309,6 +309,6 @@ apt-get -y clean
 # Time for part two
 echo "Time for part two! Your system will restart shortly."
 notify-send --urgency=critical --app-name=gnome-terminal --icon=trenta Trenta\ OS Time\ for\ part\ two!
-zenity --info --icon-name=trenta --text="Please save your work and hit OK so that we can restart your system. When it boots back up, click the gear icon and select Gnome Classic (Compiz). Then login. Once you get logged in, run wget -q -O - https://trentaos.org/installer-files/trenta-installer2.bash | bash"
+zenity --info --icon-name=trenta --text="Please save your work and hit OK so that we can restart your system. When it boots back up, click the gear icon and select Gnome Classic (Compiz). Then login. Once you get logged in, run wget http://trentaos.org/installer-files/trenta-installer2.bash && bash trenta-installer2.bash"
 reboot -f
 exit
