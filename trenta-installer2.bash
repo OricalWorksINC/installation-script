@@ -1,6 +1,7 @@
 #!/bin/bash
-# version 0.1
+# version 0.2
 echo "Configuring Trenta More..."
+# Set Fonts
 gsettings set org.gnome.desktop.interface document-font-name 'Roboto 11'
 gsettings set org.gnome.desktop.interface font-name 'Roboto 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Droid Sans Mono 11'
@@ -9,29 +10,42 @@ gsettings set org.gnome.nautilus.desktop font 'Roboto 11'
 gsettings set org.gnome.desktop.interface gtk-theme "Rainier"
 gsettings set org.gnome.desktop.interface icon-theme 'Rainier'
 gsettings set org.gnome.desktop.wm.preferences theme "Rainier"
-# Configure Docky
-pkill docky
-gconftool-2 -s -t string /apps/docky-2/Docky/Services/ThemeService/Theme Rainier
-gconftool-2 -s -t string /apps/docky-2/Docky/Interface/DockPreferences/Dock1/Autohide Intellihide
-gconftool-2 --type list --list-type string --set /apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers '[file:///usr/share/applications/midori.desktop,file:///usr/share/applications/nautilus.desktop,/usr/share/applications/vlc.desktop,file:///usr/share/applications/musique.desktop,file:///usr/share/applications/libreoffice-startcenter.desktop,file:///usr/share/applications/ubuntu-software-center.desktop,file:///usr/share/applications/gnome-terminal.desktop,file:///usr/share/applications/unity-control-center.desktop]' 
-gconftool-2 --type list --list-type string --set /apps/docky-2/Docky/Interface/DockPreferences/Dock1/Plugins '[Mounter,Trash]'
-gconftool-2 -s -t boolean /apps/docky-2/Docky/Interface/DockPreferences/Dock1/ThreeDimensional true
-gconftool-2 --type Boolean --set /apps/docky-2/Docky/Items/DockyItem/ShowDockyItem False
 gsettings set org.gnome.desktop.background picture-uri "file:///usr/share/backgrounds/trenta-wallpaper.png"
+# Configure Plank
+sudo mv -f ~/.trenta/installer/process-monitor.desktop /etc/xdg/autostart
+sudo rm -rf ~/.config/plank/dock1/launchers
+sudo mkdir ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/gnome-terminal.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/libreoffice-startcenter.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/midori.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/musique.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/nautilus.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/ubuntu-software-center.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/unity-control-center.dockitem ~/.config/plank/dock1/launchers
+sudo mv -f ~/.trenta/installer/vlc.dockitem ~/.config/plank/dock1/launchers
+sudo sed -i '/Theme=/c\Theme=Rainier' ~/.config/plank/dock1/settings
+sudo sed -i '/HideMode=/c\HideMode=1' ~/.config/plank/dock1/settings
+sudo sed -i '/Alignment=/c\Alignment=0' ~/.config/plank/dock1/settings
+sudo sed -i '/DockItems=/c\DockItems=midori.dockitem;;nautilus.dockitem;;vlc.dockitem;;musique.dockitem;;libreoffice-startcenter.dockitem;;ubuntu-software-center.dockitem;;gnome-terminal.dockitem;;unity-control-center.dockitem' ~/.config/plank/dock1/settings
 # Cleaning Up
 echo "Cleaning Up..."
 sudo rm -rf ~/.trenta/installer
+# Gnome Panel Setup
 echo "Now, we need you configure Gnome Panel yourself. We'll walk you through it."
-notify-send --urgency=critical --app-name=gnome-terminal --icon=trenta Trenta\ OS The\ installer\ needs\ some\ attention!
-zenity --info --icon-name=trenta --text="Now, we need you configure Gnome Panel yourself. We'll walk you through it."
-zenity --info --icon-name=trenta --text="First, mouse over the bottom panel and while holding the [Super (Windows)] key and [Alt], right click the panel. Then select {Delete this Panel}."
-zenity --info --icon-name=trenta --text="Next, while holding the [Super (Windows)] key and [Alt], right click the word {Applications} in the top panel. Then select {Remove from Panel}."
-zenity --info --icon-name=trenta --text="Then, while holding the [Super (Windows)] key and [Alt], right click the created empty space in the top panel. Then select {Add to Panel}."
-zenity --info --icon-name=trenta --text="Finally, select {Application Launcher}. Then open Accessories and select Slingscold."
-zenity --info --icon-name=trenta --text="Now locate the dock at the bottom of the screen. Side the Terminal icon to the left of the Settings icon."
+notify-send --urgency=critical --app-name=gnome-terminal --icon=gnome-terminal Trenta\ OS The\ installer\ needs\ some\ attention!
+zenity --info --icon-name=gnome-terminal --text="Now, we need you configure Gnome Panel yourself. We'll walk you through it."
+zenity --info --text="First, mouse over the bottom panel and while holding the [Super (Windows)] key and [Alt], right click the panel. Then select {Delete this Panel}."
+zenity --info --icon-name=gnome-terminal --text="Next, while holding the [Super (Windows)] key and [Alt], right click the word {Applications} in the top panel. Then select {Remove from Panel}."
+zenity --info --icon-name=gnome-terminal --text="Then, while holding the [Super (Windows)] key and [Alt], right click the created empty space in the top panel. Then select {Add to Panel}."
+zenity --info --icon-name=gnome-terminal --text="Finally, select {Application Launcher}. Then open Accessories and select Slingscold."
+zenity --info --icon-name=gnome-terminal --text="Now, mouse over the top panel and while holding the [Super (Windows)] key and [Alt], right click the empty space to the right of the Slingscold icon."
+zenity --info --icon-name=gnome-terminal --text="Select Indicator Applet Appmenu."
+sudo echo "Hidden=true" >> /usr/share/applications/slingscold.desktop
+zenity --info --icon-name=gnome-terminal --text="Now, CompizConfig Settings Manager will open. Open Static Application Switcher and change Next Window (All Windows) from Ctrl-Alt-Tab to Alt-Tab. Then check the box in the left column and close the window."
+ccsm
 # Completion
 echo "Trenta has completed installation!"
 notify-send --urgency=critical --app-name=gnome-terminal --icon=trenta Trenta\ OS Trenta\ has\ completed\ installation!
-zenity --info --icon-name=trenta --text="Trenta has completed installation! Once you close this window, Trenta will restart. Please save your work and hit OK."
+zenity --info --icon-name=gnome-terminal --text="Trenta has completed installation! Once you close this window, Trenta will restart. Please save your work and hit OK."
 sudo reboot -f
 exit
