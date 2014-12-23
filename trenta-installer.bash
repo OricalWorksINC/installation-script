@@ -253,7 +253,7 @@ if [[ $installCODECS = true ]]; then
 	bash /usr/share/doc/libdvdread4/install-css.sh
 	tlp start
 fi
-# Disable Apportt
+# Disable Apport
 echo "enabled=0" > /etc/default/apport
 service apport stop
 # Enable Apt Progress Bar
